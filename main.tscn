@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://n3yb12q6jmvv"]
+[gd_scene load_steps=12 format=3 uid="uid://n3yb12q6jmvv"]
 
 [ext_resource type="PackedScene" uid="uid://cupyxm4bd635p" path="res://player.tscn" id="1_cc2pp"]
 [ext_resource type="Script" path="res://main.gd" id="1_pvgyn"]
 [ext_resource type="PackedScene" uid="uid://l7cth6cuayec" path="res://mob.tscn" id="2_w5cxf"]
+[ext_resource type="FontFile" uid="uid://tnlwh7sixuc2" path="res://fonts/Montserrat-Medium.ttf" id="4_fgio2"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vb0tt"]
 size = Vector3(80, 2, 80)
@@ -22,6 +23,21 @@ _data = {
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0)
 }
 point_count = 5
+
+[sub_resource type="Theme" id="Theme_78wy2"]
+default_font = ExtResource("4_fgio2")
+default_font_size = 22
+
+[sub_resource type="GDScript" id="GDScript_3i6fy"]
+resource_name = "ScoreLabel.gd"
+script/source = "extends Label
+
+var score = 0
+
+func _on_mob_squashed():
+	score += 1
+	text = \"Score: %s\" % score
+"
 
 [node name="Main" type="Node"]
 script = ExtResource("1_pvgyn")
@@ -78,6 +94,23 @@ transform = Transform3D(-0.00479379, 0, -0.999988, 0, 1, 0, 0.999988, 0, -0.0047
 [node name="MobTimer" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
+
+[node name="UserInterface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = SubResource("Theme_78wy2")
+
+[node name="ScoreLabel" type="Label" parent="UserInterface"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 22.0
+offset_right = 82.0
+offset_bottom = 45.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Score: 0"
+script = SubResource("GDScript_3i6fy")
 
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
