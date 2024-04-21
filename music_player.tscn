@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://lcke1v4xyvjo"]
+
+[ext_resource type="AudioStream" uid="uid://bo585072oxulc" path="res://art/Creepy Nuts Bling-Bang-Bang-Born.ogg" id="1_7am2h"]
+
+[node name="MusicPlayer" type="AudioStreamPlayer"]
+stream = ExtResource("1_7am2h")
+autoplay = true
