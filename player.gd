@@ -1,4 +1,6 @@
 extends CharacterBody3D
+# Emitted when the player was hit by a mob.
+signal hit
 
 # How fast the player moves in meters per second.
 @export var speed = 14
@@ -9,6 +11,7 @@ extends CharacterBody3D
 # Vertical impulse applied to the character upon bouncing over a mob in
 # meters per second.
 @export var bounce_impulse = 16
+
 
 var target_velocity = Vector3.ZERO
 
@@ -66,3 +69,11 @@ func _physics_process(delta):
 	# Moving the Character
 	velocity = target_velocity
 	move_and_slide()
+
+
+func die():
+	hit.emit()
+	queue_free()
+
+func _on_mob_detector_body_entered(body):
+	die()

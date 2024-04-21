@@ -4,6 +4,7 @@ extends Node
 
 
 func _on_mob_timer_timeout():
+	
 	# Create a new instance of the Mob scene.
 	var mob = mob_scene.instantiate()
 
@@ -18,3 +19,7 @@ func _on_mob_timer_timeout():
 
 	# Spawn the mob by adding it to the Main scene.
 	add_child(mob)
+
+
+func _on_player_hit():
+	$MobTimer.stop()
