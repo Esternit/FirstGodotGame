@@ -12,6 +12,8 @@ signal hit
 # meters per second.
 @export var bounce_impulse = 16
 
+@export var inv:Inv
+
 
 var target_velocity = Vector3.ZERO
 
